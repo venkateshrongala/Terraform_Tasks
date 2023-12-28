@@ -1,0 +1,29 @@
+provider "aws" {
+        access_key = "AKIARZYTZU2OEDJLMASC"
+        secret_key = "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"
+        region = "us-east-2"
+}
+
+resource "aws_instance" "a5-instance" {
+        ami = "ami-0d5bf08bc8017c83b"
+        instance_type = "t2.micro"
+        key_name = ""
+        user_data = "${file("install-apache2.sh")}"
+        tags = {
+                Name = "a5-instance"
+        }
+}
+
+output "IPv4" {
+        value = aws_instance.a5-instance.public_ip
+}
+
+
+
+---------------------------------------------------
+nano install-apache2.sh
+#!/bin/bash
+sudo apt update -y
+sudo apt install apache2 -y
+sudo su
+echo "Custom html page" > /var/www/html/index.html

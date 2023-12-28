@@ -1,0 +1,29 @@
+provider "aws" {
+        alias = "NV"
+        region = "us-east-1"
+        access_key = "AKIARZYTZU2OEDJLMASC"
+        secret_key = "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"
+}
+provider "aws" {
+        alias = "Ohio"
+        region = "us-east-2"
+        access_key = "AKIARZYTZU2OEDJLMASC"
+        secret_key = "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"
+}
+resource "aws_instance" "assignment-3-1" {
+        provider = aws.NV
+        ami = "ami-0149b2da6ceec4bb0"
+        instance_type = "t2.micro"
+        tags = {
+        Name = "hello-virginia"
+        }
+}
+resource "aws_instance" "assignment-3-2" {
+        provider = aws.Ohio
+        ami = "ami-0d5bf08bc8017c83b"
+        instance_type = "t2.micro"
+        key_name = "hrithik"
+        tags = {
+        Name = "hello-ohio"
+        }
+}
